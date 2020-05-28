@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/overviewFragment">
+    <fragment
+        android:id="@+id/overviewFragment"
+        android:name="com.example.meetplanner.overview.OverviewFragment"
+        android:label="OverviewFragment"
+        tools:layout="@layout/overview_fragment">
+        <action
+            android:id="@+id/action_overviewFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="com.example.meetplanner.authentication.AuthFragment"
+        android:label="AuthFragment"
+        tools:layout="@layout/auth_fragment"/>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.meetplanner.details.DetailsFragment"
+        android:label="DetailsFragment"
+        tools:layout="@layout/meeting_details_layout">
+        <argument
+            android:name="property"
+            app:argType="com.example.meetplanner.network.MeetingDetailsProperty"/>
+    </fragment>
+</navigation>
