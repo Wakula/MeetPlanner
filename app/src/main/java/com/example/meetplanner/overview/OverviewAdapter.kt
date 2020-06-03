@@ -14,13 +14,6 @@ import com.example.meetplanner.network.OverviewMeetingProperty
 import kotlinx.android.synthetic.main.overview_list_item.view.*
 import java.time.LocalDateTime
 
-//fun formatDatetime(datetime: LocalDateTime) {
-//    val year = datetime.
-//    val day =
-//    val month
-//    val time
-//}
-
 class OverviewAdapter(private val onClickListener: OnClickListener):
     ListAdapter<OverviewMeetingProperty, OverviewAdapter.OverviewMeetingPropertyViewHolder>(DiffCallback){
 

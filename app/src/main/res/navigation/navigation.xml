@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_overviewFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_overviewFragment_to_createFragment"
+            app:destination="@id/createFragment" />
     </fragment>
     <fragment
         android:id="@+id/authFragment"
@@ -27,4 +30,8 @@
             android:name="property"
             app:argType="com.example.meetplanner.network.MeetingDetailsProperty"/>
     </fragment>
+    <fragment
+        android:id="@+id/createFragment"
+        android:name="com.example.meetplanner.create.CreateFragment"
+        android:label="CreateFragment" />
 </navigation>

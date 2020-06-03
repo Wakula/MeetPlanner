@@ -5,4 +5,7 @@
     <item
         android:id="@+id/logout_btn"
         android:title="logout" />
+    <item
+        android:id="@+id/create_btn"
+        android:title="new meeting" />
 </menu>

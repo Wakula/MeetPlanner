@@ -15,8 +15,8 @@
 
         <TextView
             android:id="@+id/description"
-            android:layout_width="312dp"
-            android:layout_height="35dp"
+            android:layout_width="322dp"
+            android:layout_height="208dp"
             android:layout_marginTop="88dp"
             android:text="@{String.valueOf(viewModel.property.description)}"
             android:textSize="20sp"

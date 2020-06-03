@@ -13,33 +13,33 @@ import retrofit2.Response
 class OverviewViewModel : ViewModel() {
     private val _properties = MutableLiveData<List<OverviewMeetingProperty>>()
     private val _selectedProperty = MutableLiveData<MeetingDetailsProperty>()
+    private val _authenticationFailed = MutableLiveData<Boolean>()
 
-    val authenticationFailed = MutableLiveData<Boolean>()
+    val authenticationFailed: LiveData<Boolean>
+        get() = _authenticationFailed
     val properties: LiveData<List<OverviewMeetingProperty>>
         get() = _properties
     val selectedProperty: LiveData<MeetingDetailsProperty>
         get() = _selectedProperty
     init {
-        authenticationFailed.value = false
+        _authenticationFailed.value = false
     }
 
     fun getMeetings() {
-        val accessToken = Tokens.access
-        MeetPlannerApi.retrofitService.getMeetings(
-            "Bearer $accessToken"
-        ).enqueue(object: Callback<List<OverviewMeetingProperty>> {
+        val accessToken = "Bearer ${Tokens.access}"
+        MeetPlannerApi.retrofitService.getMeetings(accessToken)
+            .enqueue(object: Callback<List<OverviewMeetingProperty>> {
             override fun onFailure(call: Call<List<OverviewMeetingProperty>>?, t: Throwable?) {
                     Log.v("Failure", t?.message)
             }
 
             override fun onResponse(call: Call<List<OverviewMeetingProperty>>?, response: Response<List<OverviewMeetingProperty>>?) {
-                Log.v("code", response!!.code().toString())
                 when(response?.code()) {
                     200 -> {
                         _properties.value = response?.body()
                     }
                     else -> {
-                        authenticationFailed.value = true
+                        _authenticationFailed.value = true
                         _properties.value = null
                     }
                 }
@@ -47,10 +47,9 @@ class OverviewViewModel : ViewModel() {
         })
     }
     fun displayPropertyDetails(property: OverviewMeetingProperty) {
-        val accessToken = Tokens.access
-        MeetPlannerApi.retrofitService.getMeetingDetails(
-            "Bearer $accessToken", property.id
-        ).enqueue(object: Callback<MeetingDetailsProperty> {
+        val accessToken = "Bearer ${Tokens.access}"
+        MeetPlannerApi.retrofitService.getMeetingDetails(accessToken, property.id)
+            .enqueue(object: Callback<MeetingDetailsProperty> {
             override fun onFailure(call: Call<MeetingDetailsProperty>, t: Throwable) {
                 Log.v("Failure", t?.message)
             }
@@ -68,7 +67,7 @@ class OverviewViewModel : ViewModel() {
     fun displayDetailsComplete() {
         _selectedProperty.value = null
     }
-    fun restAuthenticationFailed() {
-        authenticationFailed.value = false
+    fun resetAuthenticationFailed() {
+        _authenticationFailed.value = false
     }
 }

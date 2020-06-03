@@ -1,8 +1,5 @@
 package com.example.meetplanner.authentication
-
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -29,19 +26,12 @@ class AuthViewModel : ViewModel() {
     val authenticationState = MutableLiveData<AuthenticationState>()
 
     init {
-        Log.v("HERE", Tokens.access.toString())
         if (Tokens.access != "") {
-            Log.v("AUTHENTICATED", "yes")
             authenticationState.value = AuthenticationState.AUTHENTICATED
 
         } else {
-            Log.v("Token", Tokens.access.toString())
             authenticationState.value = AuthenticationState.UNAUTHENTICATED
         }
-    }
-
-    fun refuseAuthentication() {
-        authenticationState.value = AuthenticationState.UNAUTHENTICATED
     }
 
     fun login(email: String, password: String) {
@@ -68,7 +58,6 @@ class AuthViewModel : ViewModel() {
     }
 
     fun register(email: String, password: String) {
-        Log.v("Pass", password)
         val userProperty = UserProperty(email=email, password=password)
         MeetPlannerApi.retrofitService.signUp(userProperty).enqueue(object: Callback<UserProperty> {
             override fun onFailure(call: Call<UserProperty>?, t: Throwable?) {
@@ -92,7 +81,6 @@ class AuthViewModel : ViewModel() {
     }
 
     fun logout() {
-        Log.v("Logout", "works")
         authenticationState.value = AuthenticationState.UNAUTHENTICATED
         Tokens.clear()
     }
